@@ -1,0 +1,217 @@
+{% extends 'layout.html' %}
+{%load static%}
+{% comment %} {% if user.is_authenticated %} {% endcomment %}
+{% block content %}
+
+		<div class = "container">
+        <div id="mapid" style="height:720px;"></div>
+        </div>
+		
+
+
+		<script>
+
+
+				function mapReader(x,y){
+					// create a map in the "map" div, set the view to a given place and zoom
+				var map = L.map('mapid').setView([-6.183933, 35.750040], 13);
+
+				/* to change the location of the map change the lat and long, here 40.717192,-74.012042.
+				To change the default zoom level change 17 to another number. 0 is entire world twice over and 18 is the closest you can get
+				*/
+
+				// add an OpenStreetMap tile layer
+				L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+					attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+				}).addTo(map);
+
+				// add a marker in the given location, attach some popup content to it and open the popup
+				{% comment %} L.marker([-6.183933, 35.750040]).addTo(map)
+					.bindPopup('WEWE NJjjjjO.')
+					.openPopup(); {% endcomment %}
+			
+				{% comment %} L.marker([-6.181778, 35.739724]).addTo(map)
+					.bindPopup('The Borough of Manhattan Community College.')
+					.openPopup(); {% endcomment %}
+				var latlngs = [
+								[-6.176289,35.735521],
+								[-6.176588,35.735714],
+								[-6.177014,35.735993],
+								[-6.177292,35.736208],
+								[-6.177633,35.736423],
+								[-6.17806,35.736766],
+								[-6.178465,35.737109],
+								[-6.178742,35.737324],
+								[-6.179169,35.737581],
+								[-6.179574,35.737925],
+								[-6.179809,35.738096],
+								[-6.180065,35.738268],
+								[-6.180321,35.738461],
+								[-6.180513,35.738611],
+								[-6.180726,35.738847],
+								[-6.181004,35.738933],
+								[-6.181281,35.739169],
+								[-6.181452,35.739341],
+								[-6.181644,35.739555],
+								[-6.1819  ,35.739834],
+								[-6.182028,35.740092],
+								[-6.182177,35.740328],
+								[-6.182369,35.740628],
+								[-6.18254,35.740972],
+								[-6.182646,35.741594],
+								[-6.182646,35.74183],
+								[-6.18271,35.742087],
+								[-6.182774,35.742645],
+								[-6.182817,35.742989],
+								[-6.18286,35.743203],
+								[-6.18303,35.743954],
+								[-6.183158,35.744812],
+								[-6.183201,35.745049],
+								[-6.183265,35.745564],
+								[-6.183372,35.746036],
+								[-6.183372,35.746186],
+								[-6.183372,35.746336],
+								[-6.183414,35.746465],
+								[-6.183457,35.746722],
+								[-6.1835,35.746958],
+								[-6.183489,35.74699],
+								[-6.183478,35.747023],
+								[-6.183542,35.747302],
+								[-6.183542,35.747302],
+								[-6.183564,35.747473],
+								[-6.183564,35.747473],
+								[-6.183585,35.747516],
+								[-6.183606,35.747752],
+								[-6.183564,35.747602],
+								[-6.183649,35.747967],
+								[-6.183649,35.74816],
+								[-6.183756,35.748589],
+								[-6.183756,35.748847],
+								[-6.18382,35.749147],
+								[-6.183841,35.749512],
+								[-6.183926,35.749898],
+								[-6.184012,35.750306],
+								[-6.184054,35.750606],
+								[-6.184161,35.751035],
+								[-6.184139,35.7514],
+								[-6.18431,35.751786],
+								[-6.184331,35.752237],
+								[-6.184395,35.752795],
+								[-6.184502,35.753267],
+								[-6.184609,35.753803],
+								[-6.184651,35.754297],
+								[-6.184737,35.754962],
+								[-6.184822,35.755348],
+								[-6.184843,35.755713],
+								[-6.184929,35.756056],
+								[-6.184971,35.756679],
+								[-6.185121,35.757258],
+								[-6.185185,35.757623],
+								[-6.185249,35.758116],
+								[-6.185249,35.758417],
+								[-6.185419,35.758803],
+								[-6.185419,35.759189],
+								[-6.185526,35.759575],
+								[-6.18559,35.760005],
+								[-6.185654,35.76052],
+								[-6.185761,35.761185],
+								[-6.185803,35.7617],
+								[-6.185803,35.762129],
+								[-6.185569,35.762966],
+								[-6.185419,35.76333],
+								[-6.184993,35.763845],
+								[-6.184694,35.764232],
+								[-6.184609,35.764382],
+								[-6.184417,35.764554],
+								[-6.184246,35.764811],
+								[-6.184203,35.764854],
+								[-6.184161,35.764897],
+								[-6.183926,35.765219],
+								[-6.18382,35.765326],
+								[-6.183734,35.765433],
+								[-6.183702,35.765476],
+								[-6.18367,35.765519],
+								[-6.183478,35.765755],
+								[-6.183457,35.765766],
+								[-6.183436,35.765777],
+								[-6.183094,35.766098],
+								[-6.18286,35.766377],
+								[-6.182689,35.766571],
+								[-6.182561,35.766742],
+								[-6.182326,35.767021],
+								[-6.182113,35.767407],
+								[-6.181772,35.767729]
+
+
+
+							];
+
+				var js_list = {{locations}};
+				
+				var ueue = JSON.parse("[" + js_list + "]");
+				console.log(ueue);
+
+				var i;
+				for (i = 0; i < ueue.length; i++) {
+					
+						var circle = L.circle([ueue[i+1], ueue[i]], {
+							color: 'red',
+							fillColor: '#f03',
+							fillOpacity: 0.1,
+							radius: 500
+								}).addTo(map);
+									
+						var circle = L.circle([ueue[i+1], ueue[i]], {
+							color: 'green',
+							fillColor: '#f05',
+							fillOpacity: 1,
+							radius: 10
+								}).addTo(map);
+						
+						var a_marker = L.marker([ueue[i+1], ueue[i]]).addTo(map)
+							.bindPopup('The Borough of Manhattan Community College.')
+							
+						
+						console.log(ueue[i])
+						console.log(Object.prototype.toString.call(ueue[i]))
+						console.log(ueue[i+1])
+						console.log(i)
+						i = i+1
+						console.log(i)
+					}
+
+				var polyline = L.polyline(latlngs, {color: 'green'});
+				   
+				animatedMarker = L.animatedMarker(polyline.getLatLngs(),{
+					 
+				});
+				map.addLayer(animatedMarker);
+				var line = L.polyline(latlngs,{color: 'cyan'}).addTo(map);
+				{% comment %} var circle = L.polyline([[35.746180,-6.184214],
+								[35.7461589,-6.184352],
+								[35.7461535,-6.184438]],
+								{color: 'blue'}).addTo(map);
+				var circle = L.circle([-6.183933, 35.750040], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+                radius: 500
+					}).addTo(map); {% endcomment %}
+
+                
+				
+				{% comment %} L.marker([x, y]).addTo(map)
+					.bindPopup('The Borough of Manhattan Community College.')
+					.openPopup()
+				} {% endcomment %}
+				{% comment %} map.fitBounds(polyline.getBounds()); {% endcomment %}
+
+				}
+
+		</script>
+
+{% endblock content %}
+{% comment %} {% else %}
+    <p><a href="login">Login</a></p>
+    
+    {% endif %} {% endcomment %}

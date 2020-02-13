@@ -1,0 +1,263 @@
+{% load static %}
+{% comment %} {% load leaflet_tags %} {% endcomment %}
+<!doctype html>
+<html class="no-js" lang="en">
+{% comment %} {% if user.is_authenticated %} {% endcomment %}
+<head>
+    <title>UDART</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico'%} "/>
+    <!-- favicon
+		============================================ -->
+    
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"/>
+    <!-- font awesome CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}"/>
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/scrollbar/jquery.mCustomScrollbar.min.css'%}">
+    <!-- wave CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/wave/waves.min.css'%}">
+    <!-- Notika icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/notika-custom-icon.css'%}">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <!-- responsive CSS ============================================ -->
+    <link  href="{% static 'css/responsive.css'%}" rel="stylesheet">
+    {% comment %} <!-- modernizr JS
+		============================================ --> {% endcomment %}
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css'%}">
+{% comment %} 
+   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="leaflet-routing-machine.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="leaflet-routing-machine.js"></script> {% endcomment %}
+{% comment %} 
+{% leaflet_js %}
+{% leaflet_css %} {% endcomment %}
+
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin=""/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/css/dvf.css"> 
+		<!-- Make sure you put this AFTER Leaflet's CSS -->
+		<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin=""></script>
+    
+    </head>
+<body onload="mapReader('-6.183465','35.746221')">
+<br>
+    </br>
+    <div class=" header-fixed-bd-hd ">
+        <div class="container">
+            <div class="row" >
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro " style = "background-color:#8BC34A">
+                        <li class="active"><a data-toggle="tab" href="#Home"><i class="notika-icon notika-house"></i> Home</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Analytics"><i class="notika-icon notika-bar-chart"></i> Analytics</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Registrations</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Settings"><i class="notika-icon notika-support"></i> Settings</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Logout"><i class="notika-icon notika-next"></i> Logout</a>
+                        </li>
+                        
+                        {% comment %} 
+                        <li><a data-toggle="tab" href="#Appviews"><i class="notika-icon notika-app"></i> App views</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Settings</a>
+                        </li> {% endcomment %}
+                    </ul>
+                    <div class="tab-content custom-menu-content">
+
+                        <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                 <li><a href="home">Current Activity</a>   {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                                {% comment %} <li><a href="map_view">Activity Map</a>TODO work to let data for map view as above commented link {% endcomment %}
+                                <li><a href="#">Activity Map</a> {% comment %}TODO work to let data for map view as above commented link  {% endcomment %}
+                                </li>
+                                {% comment %} <li><a href="index-3.html">Dashboard Three</a>
+                                </li>
+                                <li><a href="index-4.html">Dashboard Four</a>
+                                </li>
+                                <li><a href="analytics.html">Analytics</a>
+                                </li>
+                                <li><a href="widgets.html">Widgets</a>
+                                </li> {% endcomment %}
+                            </ul>
+                        </div>
+                        <div id="Analytics" class="tab-pane notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="view_users">View Registered Users</a> {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                                {% comment %} <li><a href="view-email.html">Predictive Maintenance  </a>  TODO work on the  links {% endcomment %}
+                                <li><a href="#">View Active Cards  </a>
+                                </li>
+                                <li><a href="#">View Non Active Cards</a>      {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                                <li><a href="view_bus_station"> View Bus stations</a>      {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                                <li><a href="view_bus_revenue"> View Revenue </a>      {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                                <li><a href="vendor_detail"> View Registered Vendors </a>      {% comment %}TODO work on the  links {% endcomment %}
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="add_bus_station">Add new Bus Station</a>
+                                </li>
+                                <li><a href="add_machine_detail">Add Machine details</a>
+                                </li>
+                                <li><a href="#">Register Cards</a>
+                                </li>
+                                <li><a href="add_vendor_detail">Register Vendor</a>
+                                </li>
+                                <li><a href="control_number">Generate control number</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="Settings" class="tab-pane notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                {% comment %} <li><a href="flot-charts.html">Update Credentials</a> {% endcomment %}
+                                <li><a href="#">Entry Logs</a>
+                                </li>
+                                {% comment %} <li><a href="bar-charts.html">Edit Passwords</a>
+                                </li> {% endcomment %}
+                                {% comment %} <li><a href="line-charts.html">Maintenance Configurations</a> {% endcomment %}
+                                <li><a href="#">Exit Logs</a>
+                                </li>
+                                <li><a href="#">Recharge Logs</a>
+                                </li>
+                                {% comment %} <li><a href="area-charts.html">Area Charts</a>
+                                </li> {% endcomment %}
+                            </ul>
+                        </div>
+                        <div id="Logout" class="tab-pane notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                {% comment %} <li><a href="#">Switch User</a>
+                                </li> {% endcomment %}
+                                <li><a href="logout_view">Logout</a>
+                                </li>
+                            </ul>
+                        </div> 
+          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+</br>
+
+{% block content %}
+
+{% endblock content %}
+
+<!-- wow JS
+		============================================ -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    
+    <!-- wow JS
+		============================================ -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <!-- price-slider JS
+		============================================ -->
+    <script src="{% static 'js/jquery-price-slider.js' %}"></script>
+    <!-- owl.carousel JS
+		============================================ -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- scrollUp JS
+		============================================ -->
+    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+    <!-- meanmenu JS
+		============================================ -->
+    <script src="{% static 'js/meanmenu/jquery.meanmenu.js' %}"></script>
+    <!-- counterup JS
+		============================================ -->
+    <script src="{% static 'js/counterup/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/counterup/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/counterup/counterup-active.js' %}"></script>
+    <!-- mCustomScrollbar JS
+		============================================ -->
+    <script src="{% static 'js/scrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <!-- sparkline JS
+		============================================ -->
+    <script src="{% static 'js/sparkline/jquery.sparkline.min.js' %}"></script>
+    <script src="{% static 'js/sparkline/sparkline-active.js' %}"></script>
+    <!-- flot JS
+		============================================ -->
+    <script src="{% static 'js/flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'js/flot/flot-active.js' %}"></script>
+    <!-- knob JS
+		============================================ -->
+    <script src="{% static 'js/knob/jquery.knob.js' %}"></script>
+    <script src="{% static 'js/knob/jquery.appear.js' %}"></script>
+    <script src="{% static 'js/knob/knob-active.js' %}"></script>
+    <!--  wave JS
+		============================================ -->
+    <script src="{% static 'js/wave/waves.min.js' %}"></script>
+    <script src="{% static 'js/wave/wave-active.js' %}"></script>
+    <!--  Chat JS
+		============================================ -->
+    <script src="{% static 'js/chat/jquery.chat.js' %}"></script>
+    <!--  todo JS
+		============================================ -->
+    <script src="{% static 'js/todo/jquery.todo.js' %}"></script>
+    <!-- plugins JS
+		============================================ -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <!-- main JS
+		============================================ -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+     <script src" https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.js"> </script>
+    {% comment %} <script src" https://cdnjs.cloudflare.com/ajax/libs/leaflet.AnimatedMarker/1.0.0/AnimatedMarker.min.js" > </script>
+    <script src"https://cdnjs.cloudflare.com/ajax/libs/leaflet.AnimatedMarker/1.0.0/AnimatedMarker.min.js.map"> </script> {% endcomment %}
+    <script src="{% static 'js/leaf/AnimatedMarker.js'%}"></script>
+
+</body>
+{% comment %} {% else %}
+    <p><a href="login">Login</a></p>
+    
+    {% endif %} {% endcomment %}
+   
+</html>

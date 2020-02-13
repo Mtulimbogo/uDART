@@ -1,0 +1,17 @@
+{
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    
+    "liveServer.settings.port": 5501,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "bracketPairColorizer.consecutivePairColors": [
+        ["<", "</"],
+        ["<", "/>"],
+        [
+            "Gold",
+            "Orchid",
+            "LightSkyBlue"
+        ],
+        "Red"
+    ],
+}

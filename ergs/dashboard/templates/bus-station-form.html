@@ -1,0 +1,250 @@
+{% extends 'layout.html' %}
+{%load static%}
+
+{% block content %}
+<style>.btn-circle {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  padding: 0;
+  border-radius: 50%;
+  float: right;
+}
+.search-sec{
+    padding: 2rem;
+}
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        top: -114px;
+        background: rgba(26, 70, 104, 0.51);
+    }
+}
+
+@media (max-width: 992px){
+    .search-sec{
+        background: #1A4668;
+    }
+}</style>
+   	<!-- Breadcomb area Start-->
+{% comment %} {% if user.is_authenticated %} {% endcomment %}
+        <div class="breadcomb-area">
+            <div class="container">
+            {% csrf_token %}
+            <form action="#" method="post" novalidate="novalidate" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row ">
+                            {% comment %} <div class="col-lg-3 col-md-3 col-sm-12 p-0 ">
+                                <input type="text" class="form-control search-slt  " placeholder="Enter Gate Id">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0 ">
+                                <button type="button" class="btn btn-secondary wrn-btn " type ="submit" >Search</button>
+                            </div> {% endcomment %}
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0 ">
+                                <button type="button" class="btn btn-secondary wrn-btn " onclick="window.location.href = 'view_bus_station';" >Check data</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        <!-- Breadcomb area End-->
+        <!-- Form Element area Start-->
+        <div class="form-element-area">
+            <div class="container">
+            <form action="add_bus_station" method="post" enctype = "application/w-xxx-form-urlencoded">
+            {% csrf_token %}
+            <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-element-list">
+                            <div class="basic-tb-hd">
+                                <h2>Add new Bus station</h2>
+                                {% comment %} <p>Add train details for monitoring  </p> {% endcomment %}
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa  fa-trash"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Station ID" name  = "station_id">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa fa-location-arrow"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="eGate Location Name" name  = "gate_location">
+                                        </div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa fa-home "   ></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Station Name" name = "station_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa fa-road"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Name of Road intersection" name = "road_intersection">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                            
+                            {% comment %} <div class="row">
+                        
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa fa-location-arrow"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Region Located" name = "region_located">  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="fa fa-hashtag "   ></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="ZipCode" name = "zipcode">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator "></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Center eGate Longitude" name = "centre_eGate_Longitude" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            
+                            <div class="row">
+                            
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Center eGate Latitude" name = "centre_eGate_Latitude" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator "   ></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="East Sensor Latitude" name = "east_Sensor_Latitude">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="East Sensor Longitude" name = "east_Sensor_Longitude">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  {% endcomment %}                   
+
+                            {% comment %} <div class="row"> {% endcomment %}
+                            
+                                {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="West Sensor Latitude" name ="west_Sensor_Latitude" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-ip-locator"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="West Sensor Longitude" name ="west_Sensor_Longitude">
+                                        </div>
+                                    </div>
+                                </div>   {% endcomment %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            
+                                        </div>
+                                        <div class="nk-int-st">
+                                        <button class="btn btn-success btn-circle m-1" type = "submit"><i class="fa fa-check"></i></button>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                </form>
+    {% if data.receved %}
+
+    {% endif %}
+
+    {% endblock content %}
+{% comment %} 
+{% else %}
+    <p><a href="login">Login</a></p>
+{% endif %} {% endcomment %}
