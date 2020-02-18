@@ -20,7 +20,7 @@ class all_available_card(models.Model): #declare all the data of the card {that 
     # api_token = get_random_string(length=32)
 
     def __str__(self):
-        return self.status
+        return str(self.uuid_number)
 
 class user_data(models.Model): #Capturing user data
     # id = models.AutoField(primary_key=True)
@@ -31,7 +31,7 @@ class user_data(models.Model): #Capturing user data
     vendor_id = models.CharField(max_length = 50,default = "")
     # recharge_balance = models.CharField(max_length= 50)
     current_amount = models.FloatField(max_length=220,default=0)#current_amount= ( (current_amount + total_amount_recharged) - credit_amount)
-    credit_amount = models.FloatField(max_length=220,default=0)#over deduction than the amount on the card
+    # credit_amount = models.FloatField(max_length=220,default=0)#over deduction than the amount on the card
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -80,6 +80,8 @@ class bus_station(models.Model): #Provide the data of the Bus stop
     station_id = models.IntegerField(primary_key = True)
     station_name = models.CharField(max_length=220)
     machine_id = models.ForeignKey(machine_on_bus_station, on_delete = models.CASCADE) 
+    centre_latitude = models.FloatField(max_length=220,default=0) #recharge station ID
+    centre_longitude = models.FloatField(max_length=220,default=0) #recharge station ID
     created_on = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):
