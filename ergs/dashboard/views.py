@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.db.models import Count
-
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 # # from .models import *
 # # from django.contrib.auth import User
 # # from django.contrib.auth.mixins import LoginRequiredMixin
@@ -67,7 +68,9 @@ class JSONResponse(HttpResponse):
 #             return JSONResponse(serializer.data, status=200)
 #         return JSONResponse(serializer.errors, status=400)
 
-class userdata(APIView): #API to receive sensor data.
+
+#API to Receive and Register User data (Customer or Passsenger) from the vendor.
+class userdata(APIView): 
     permission_classes = (IsAuthenticated,) #TO DO Query all users who have been registered with specific vendor
     # def get(self, request):
     #     sensor_data_list = sensor_data.objects.all()
@@ -82,7 +85,9 @@ class userdata(APIView): #API to receive sensor data.
             return JSONResponse(serializer.data, status=200)
         return JSONResponse(serializer.errors, status=400)
 
-class vendor_verification(APIView): #API to verify vendor login data.
+
+#API to Recieve and verify vendor login data.
+class vendor_verification(APIView): 
     permission_classes = (IsAuthenticated,)
     # def get(self, request):
     #     sensor_data_list = sensor_data.objects.all()
@@ -90,28 +95,6 @@ class vendor_verification(APIView): #API to verify vendor login data.
     #     return JSONResponse(serializer.data)
 
     def post(self,request): #Method for saving received sensor data to database
-    #     username=request.POST["username"] 
-    #     password = request.POST["password"]
-        
-    #     user = auth.authenticate(username = username,password = password)
-    #     if user is not None:
-    #         auth.login(request,user)  
-    #         request.session['id']  = user.id
-    #         request.method ="GET" 
-    #         print(request.user.is_authenticated)   
-    #         # relevant_data = relevant_data_fn(request)     
-    #         print(request.user.is_authenticated)   
-    #         # return render(request,'index-2.html',relevant_data)
-    #         # return render(request,'index-2.html',relevant_data)
-    #         messages.success(request, 'You logged in successfull')
-    #         return HttpResponseRedirect('home')
-
-    #     else:
-    #         print(request.user.is_authenticated)
-    #         return render(request,'login-register.html')
-    # else:
-    #      return render(request,'login-register.html')
-
         data = JSONParser().parse(request)
         serializer = Sensor_dataSerializer(data=data)
         if serializer.is_valid():
@@ -119,7 +102,9 @@ class vendor_verification(APIView): #API to verify vendor login data.
             return JSONResponse(serializer.data, status=200)
         return JSONResponse(serializer.errors, status=400)
 
-class recharge(APIView): #API to verify vendor login data.
+
+#API to Receive and Recharge amount for the customer or passenger.
+class recharge(APIView): 
     permission_classes = (IsAuthenticated,)
     # def get(self, request):
     #     sensor_data_list = sensor_data.objects.all()
@@ -137,8 +122,7 @@ class recharge(APIView): #API to verify vendor login data.
 
 
 
-# # @login_required(login_url='/login')
-# # @login_required 
+#Login Function to Log in to the Administrative Dashboard
 def login(request):   
     if request.method=="POST":
         username=request.POST["username"] 
@@ -178,6 +162,10 @@ def relevant_data_fn(request):
     cards_registered = all_available_card.objects.all().count()
     active_cards = 0 #later on to be fetched data from the database with active status from all cards
     non_active_cards = 0
+
+    bus_location = bus_station.objects.values('station_name','centre_latitude','centre_longitude')
+    location_list = list(bus_location)
+    x = json.dumps(location_list)
     # active_cards=all_available_card.objects.filter(status__in='on').annotate(most_likes=Count('on')).order_by('most_likes')
     # active_cards=all_available_card.objects.
     
@@ -186,12 +174,26 @@ def relevant_data_fn(request):
     # else:
     #     active_cards = 1 #later on to be fetched data from the database with active status from all cards
     # non_active_cards = 0
-    relevant_data = {"number_of_cards": cards_registered,"users":users,"active_cards":active_cards,"non_active_cards":non_active_cards}
+    relevant_data = {"number_of_cards": cards_registered,"users":users,"active_cards":active_cards,"non_active_cards":non_active_cards,"location_list":x}
     return relevant_data
 
+# @cache_control(no_cache=True, must_revalidate=True) 
+# def relevant_data_fn(request):
+#     trains = train_detail.objects.all().count()
+#     number_of_egates = gate_detail.objects.all().count()
+
+#     active = get_todays_sales()
+#     broken_egates = 1
+#     bus_location = bus_station.objects.values('station_name','centre_latitude','centre_longitude')
+#     location_list = list(bus_location)
+#     x = json.dumps(location_list)
+#     relevant_data = {"number_of_egates": number_of_egates,"trains":trains,"active":active,"broken_egates":broken_egates,"location_list":x}
+#     return relevant_data
+
+#insert a new Bus Station details
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
-def add_bus_station(request): #insert a new Bus Station details
+def add_bus_station(request): 
     if request.method == 'POST':
         # district_located = request.POST['district_located']
         bus_station_details = bus_station()
@@ -211,10 +213,10 @@ def add_bus_station(request): #insert a new Bus Station details
     return render(request,'index-2.html')
 
 
-
+#insert a new Vendor detail Station details
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
-def insert_vendor_data(request): #insert a new Vendor detail Station details
+def insert_vendor_data(request): 
     if request.method == 'POST':
         # district_located = request.POST['district_located']
         vendor_detail = vendor_data()
@@ -234,6 +236,29 @@ def insert_vendor_data(request): #insert a new Vendor detail Station details
     return render(request,'index-2.html')
 
 
+#insert a new Recharge detail 
+@login_required(login_url='/sumb') 
+@cache_control(no_cache=True, must_revalidate=True) 
+def recharge_data(request): 
+    if request.method == 'POST':
+        # district_located = request.POST['district_located']
+        recharge_detail = recharge()
+        recharge_detail.uuid_number = request.POST.get('uuid_number')
+        recharge_detail.recharged_amount = request.POST.get('phone_number')
+        recharge_detail.place_of_recharge = request.POST.get('place_of_recharge')
+        # vendor_detail.date_created = request.POST.get('destination')
+        try: 
+            recharge_detail.save()
+            messages.success(request,"Record Saved Successfully")
+            return render(request,'recharge-form.html',{})            
+        except:
+            messages.success(request,"Record Not Saved, There seems to be an error")
+            return render(request,'recharge-form.html',{})
+    return render(request,'index-2.html')
+
+
+ 
+#insert a new Machine detail Station details
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def insert_machine_detail(request): #insert a new Machine detail Station details
@@ -328,6 +353,8 @@ def insert_machine_detail(request): #insert a new Machine detail Station details
 #         return redirect('sumb')
 #     return render(request,'train-form.html',{})
 
+
+#Redirecting to a  page for adding new bus station
 @login_required(login_url='/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def bus_station_form(request):
@@ -335,13 +362,26 @@ def bus_station_form(request):
         return redirect('sumb')
     return render(request,'bus-station-form.html',{})
 
+
+#Redirecting to a Recharge form for top up customer account
 @login_required(login_url='/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
-def control_number(request):
+def recharge_account(request):
     if not request.user.is_authenticated:
         return redirect('sumb')
     return render(request,'recharge-form.html',{})
 
+
+#Redirecting to  a page for adding new Customer or passenger data (Registering card to a user) 
+@login_required(login_url='/sumb')
+@cache_control(no_cache=True, must_revalidate=True)  
+def customer_data(request):
+    if not request.user.is_authenticated:
+        return redirect('sumb')
+    return render(request,'user-form.html',{})
+
+
+#Redirecting to a page that add new Machine data (Registering Machines on bus station)
 @login_required(login_url='/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def add_machine_detail(request):
@@ -349,6 +389,7 @@ def add_machine_detail(request):
         return redirect('sumb')
     return render(request,'machineData-form.html',{})
 
+#Redirecting to a vendor form that registers new vendor 
 @login_required(login_url='/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def add_vendor_detail(request):
@@ -376,6 +417,7 @@ def add_vendor_detail(request):
 #     return HttpResponse(request,'#') 
 
 
+#Getting data of registers users (customer or passengers)
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def view_users(request):  # getting User data
@@ -387,7 +429,7 @@ def view_users(request):  # getting User data
     titles = ["ID","Name","Card number","Nationa ID","Type of Registration","Vendor ID","Current Amount","Credit Amount","Date Created"]
     return render(request,'table-trial.html',{"data":user_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
-
+#Getting data of rgistered Bus stations
 @login_required(login_url='/sumb') 
 def view_bus_station(request): #Getting Bus station data, Some data has to be fetched from the Machine table
     if not request.user.is_authenticated:
@@ -401,7 +443,8 @@ def view_bus_station(request): #Getting Bus station data, Some data has to be fe
         # print (a[2])
     return render(request,'table-trial.html',{"data":bus_station_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para })
 
- 
+
+#Getting data of Revenue collected 
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def view_bus_revenue(request):  # getting data from Fare collection Model, Some data to be fetched from Machine and Station.
@@ -414,17 +457,17 @@ def view_bus_revenue(request):  # getting data from Fare collection Model, Some 
     titles = ["ID","Card Number","Station Name","Machine Number","Debit amount","Credit Amount","Date"]
     return render(request,'table-trial.html',{"data":revenue_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
-
+#Getting data of Registered Vendors
 @login_required(login_url='/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
-def vendor_detail(request):  # getting data from Fare collection Model, Some data to be fetched from Machine and Station.
+def vendor_detail(request):  # getting data from Vendor Data Model, Some data to be fetched from Machine and Station.
     if not request.user.is_authenticated:
         return redirect('sumb')
     doc_header = "Registered Vendors"
     doc_para = "All the registered vendors"
     vendor_details=vendor_data.objects.values_list()
-    # titles = ["ID","Card Number","Station Name","Machine Number","Debit amount","Credit Amount","Date", "Total Debit Amount", "Total Credit Amount"]
     titles = ["S/N","Vendor ID","Vendor name","Registration number","Registration type","Password","Date Registered"]
+
     return render(request,'table-trial.html',{"data":vendor_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
 
@@ -516,6 +559,7 @@ def vendor_detail(request):  # getting data from Fare collection Model, Some dat
 #         a = get_random_string(length=32)
 #     return render(request,'dialog.html',{})
 
+#Logout Function for Logged in user of the Adminstrative Dashboard
 from django.contrib.auth import logout
 @login_required
 @cache_control(no_cache=True, must_revalidate=True) 

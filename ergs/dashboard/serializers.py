@@ -69,6 +69,11 @@ class recharge_dataSerializer(serializers.HyperlinkedModelSerializer):
     recharged_amount = serializers.FloatField() 
     place_of_recharge = serializers.CharField(max_length=220)  
     date_of_recharge = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
+
+    def ammout_added():
+        amount = user_data()
+        existing_amount = amount.objects.values_list("current_amount").filter(id=1)
+        total_amount  = existing_amount + recharged_amount #the Total mount has to be for current_amount on user account.
     class Meta:
         model = recharge
         fields = ('uuid_number','recharged_amount','place_of_recharge','date_of_recharge')
