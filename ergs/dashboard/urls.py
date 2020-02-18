@@ -28,13 +28,14 @@ urlpatterns = [
     path('add_bus_station',views.bus_station_form,name="Add Bus Details"),
     path('add_machine_detail',views.add_machine_detail,name="Add Machine Details"),
     path('add_vendor_detail',views.add_vendor_detail,name="Direct to Add vendor Details"),
+    path('CustomerData', views.customer_data, name= "Retrieving form data for the customer/passenger"),
     path('vendor_data',views.insert_vendor_data,name="Insert vendor details to DB from form"),
-    path('control_number',views.control_number,name="Control Number that allows user to recharge"),
+    path('recharge_account',views.recharge_account,name="Control Number that allows user to recharge"),
     path('vendor_detail',views.vendor_detail,name="Retrieve Vendor Data"),
     path('apiyangu/user_data', views.userdata.as_view()), #API for inserting new user to DB
     path('api/vendor_verification', views.vendor_verification.as_view()), #API for authenticating the vendor once login to Account
     path('api/recharge', views.recharge.as_view()),#API for inserting new recharge balance from vendor to DB
-#     path('newgate', views.newgate, name = "add new gate to database"),
+    path('recharge', views.recharge_data, name = "add new gate to database"),
 #     path('map_view',views.map_view, name= "System Map"),
 #     path('key',views.secret_keys,name="Get api Token"),
     path('',views.login, name= "Welcome to UDART"),
