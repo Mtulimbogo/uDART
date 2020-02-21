@@ -76,7 +76,7 @@
         <!-- Form Element area Start-->
         <div class="form-element-area">
             <div class="container">
-            <form action="add_bus_station" method="post" enctype = "application/w-xxx-form-urlencoded">
+            <form action="add_bus_station" method="post" enctype = "application/w-xxx-form-urlencoded" >
             {% csrf_token %}
             <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -92,136 +92,44 @@
                                             <i class="fa  fa-trash"></i>
                                         </div>
                                         <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Station ID" name  = "station_id">
+                                            <input type="text" class="form-control" placeholder="Station ID" name  = "station_id" required>
                                         </div>
                                     </div>
                                 </div>
-                                {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="fa fa-location-arrow"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="eGate Location Name" name  = "gate_location">
-                                        </div>
-                                    </div>
-                                </div> {% endcomment %}
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                     <div class="form-group ic-cmp-int">
                                         <div class="form-ic-cmp">
                                             <i class="fa fa-home "   ></i>
                                         </div>
                                         <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Station Name" name = "station_name">
+                                            <input type="text" class="form-control" placeholder="Station Name" name = "station_name" required>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-map"></i>
+                                        </div>
+                                        <div class="nk-int-st">
+                                            <input type="text" class="form-control" placeholder="Station Latitude" name  = "centre_latitude" required>
+                                        </div>
+                                    </div>
+                                </div> 
+                               
 
-                                    {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                     <div class="form-group ic-cmp-int">
                                         <div class="form-ic-cmp">
-                                            <i class="fa fa-road"></i>
+                                            <i class="notika-icon notika-map"></i>
                                         </div>
                                         <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Name of Road intersection" name = "road_intersection">
+                                            <input type="text" class="form-control" placeholder="Station Latitude" name = "centre_longitude" required>
                                         </div>
                                     </div>
                                 </div>
-                            </div> {% endcomment %}
                             
-                            {% comment %} <div class="row">
-                        
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="fa fa-location-arrow"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Region Located" name = "region_located">  
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="fa fa-hashtag "   ></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="ZipCode" name = "zipcode">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator "></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Center eGate Longitude" name = "centre_eGate_Longitude" >
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            
-                            <div class="row">
-                            
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="Center eGate Latitude" name = "centre_eGate_Latitude" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator "   ></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="East Sensor Latitude" name = "east_Sensor_Latitude">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="East Sensor Longitude" name = "east_Sensor_Longitude">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>  {% endcomment %}                   
-
-                            {% comment %} <div class="row"> {% endcomment %}
-                            
-                                {% comment %} <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="West Sensor Latitude" name ="west_Sensor_Latitude" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="form-group ic-cmp-int">
-                                        <div class="form-ic-cmp">
-                                            <i class="notika-icon notika-ip-locator"></i>
-                                        </div>
-                                        <div class="nk-int-st">
-                                            <input type="text" class="form-control" placeholder="West Sensor Longitude" name ="west_Sensor_Longitude">
-                                        </div>
-                                    </div>
-                                </div>   {% endcomment %}
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                     <div class="form-group ic-cmp-int">
                                         <div class="form-ic-cmp">
                                             

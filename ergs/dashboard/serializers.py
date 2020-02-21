@@ -12,6 +12,7 @@ class userdata_dataSerializer(serializers.HyperlinkedModelSerializer):
     national_id = serializers.IntegerField()
     type_of_registration = serializers.CharField(max_length=50) #whether adult or child
     vendor_id = serializers.CharField()
+    phone_number = serializers.IntegerField()
     current_amount = serializers.FloatField()
     credit_amount = serializers.FloatField()
     date_created = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
@@ -19,7 +20,7 @@ class userdata_dataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = user_data
         fields = ('id','user_name','uuid_number','national_id','type_of_registration',
-        'vendor_id','current_amount','credit_amount','date_created')
+        'vendor_id','phone_number','current_amount','credit_amount','date_created')
 
 class vendor_verification_dataSerializer(serializers.HyperlinkedModelSerializer):
     """

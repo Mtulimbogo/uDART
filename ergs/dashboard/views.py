@@ -71,7 +71,7 @@ class JSONResponse(HttpResponse):
 
 #API to Receive and Register User data (Customer or Passsenger) from the vendor.
 class userdata(APIView): 
-    permission_classes = (IsAuthenticated,) #TO DO Query all users who have been registered with specific vendor
+    permission_classes = (IsAuthenticated,) 
     # def get(self, request):
     #     sensor_data_list = sensor_data.objects.all()
     #     serializer = Sensor_dataSerializer(sensor_data_list , many=True)
@@ -199,6 +199,8 @@ def add_bus_station(request):
         bus_station_details = bus_station()
         bus_station_details.station_id = request.POST.get('station_id')
         bus_station_details.station_name = request.POST.get('station_name')
+        bus_station_details.centre_latitude =request.POST.get('centre_latitude')
+        bus_station_details.centre_longitude =request.POST.get('centre_longitude')
         # bus_station_details.machine_id = request.POST.get('home_station')
         # bus_station_details.created_on = request.POST.get('train_type')
         # abus_station_details.station_of_origin = request.POST.get('origin')
@@ -206,10 +208,10 @@ def add_bus_station(request):
         try: 
             bus_station_details.save()
             messages.success(request,"Record Saved Successfully")
-            return render(request,'train-form.html',{})            
+            return render(request,'bus-station-form.html',{})            
         except:
             messages.success(request,"Record Not Saved, There seems to be an error")
-            return render(request,'train-form.html',{})
+            return render(request,'bus-station-form.html',{})
     return render(request,'index-2.html')
 
 
@@ -280,33 +282,30 @@ def insert_machine_detail(request): #insert a new Machine detail Station details
             return render(request,'train-form.html',{})
     return render(request,'index-2.html')
 
-# @login_required(login_url='/sumb')  #
-# @cache_control(no_cache=True, must_revalidate=True)  
-# def newgate(request): #insert a new gate details
-#     if request.method == 'POST':
-#         # district_located = request.POST['district_located']
-#         gate_details = gate_detail()
-#         gate_details.Gate_name = request.POST.get('gate_name')
-#         gate_details.district = request.POST.get('district_located')
-#         gate_details.road_intersect_name = request.POST.get('road_intersection') 
-#         gate_details.region = request.POST.get('region_located') 
-#         gate_details.zipcode = request.POST.get('zipcode')
-#         gate_details.centre_latitude = request.POST.get('centre_eGate_Latitude')
-#         gate_details.centre_longitude = request.POST.get('centre_eGate_Longitude')
-#         gate_details.east_sensor_latitude = request.POST.get('east_Sensor_Latitude')
-#         gate_details.east_sensor_longitude = request.POST.get('east_Sensor_Longitude')
-#         gate_details.west_sensor_latitude = request.POST.get('west_Sensor_Latitude')
-#         gate_details.west_sensor_longitude = request.POST.get('west_Sensor_Longitude')
 
-#         try: 
-#             gate_details.save()
-#             messages.success(request,"Record Saved Successfully")
-#             # print (gate_details.west_sensor_longitude)
-#             return render(request,'gate-form.html',{})            
-#         except:
-#             messages.success(request,"Record Not Saved, There seems to be an error")
-#             return render(request,'gate-form.html',{})
-#     return render(request,'index-2.html')
+#insert a new user details via adminstrative daashboard.
+@login_required(login_url='/sumb')  #
+@cache_control(no_cache=True, must_revalidate=True)  
+def add_user_data(request): 
+    if request.method == 'POST':
+        # district_located = request.POST['district_located']
+        user_detail = user_data()
+        user_detail.user_name = request.POST.get('user_name')
+        user_detail.uuid_number = request.POST.get('uuid_number')
+        user_detail.national_id = request.POST.get('national_id') 
+        user_detail.type_of_registration = request.POST.get('type_of_registration') 
+        user_detail.vendor_id = request.POST.get('vendor_id')
+        user_detail.phone_number = request.POST.get('phone_number') 
+
+        try: 
+            user_detail.save()
+            messages.success(request,"Record Saved Successfully")
+            # print (gate_details.west_sensor_longitude)
+            return render(request,'user-form.html',{})            
+        except:
+            messages.success(request,"Record Not Saved, There seems to be an error")
+            return render(request,'user-form.html',{})
+    return render(request,'index-2.html')
 
 # # @login_required ()
 # def errorpage(request):
@@ -426,7 +425,19 @@ def view_users(request):  # getting User data
     doc_header = "Users Registered"
     doc_para = "All Registered Users with cards currently in service"
     user_details=user_data.objects.values_list()
-    titles = ["ID","Name","Card number","Nationa ID","Type of Registration","Vendor ID","Current Amount","Credit Amount","Date Created"]
+    titles = ["ID","Name","Card number","National ID","Type of Registration","Vendor ID","Phone Number","Balance Amount","Credit Amount","Date Created"]
+    return render(request,'table-trial.html',{"data":user_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
+
+#Getting data of Machines Registered 
+@login_required(login_url='/sumb') 
+@cache_control(no_cache=True, must_revalidate=True) 
+def machine_details(request): 
+    if not request.user.is_authenticated:
+        return redirect('sumb')
+    doc_header = "Users Registered"
+    doc_para = "All Registered Users with cards currently in service"
+    machine_data=machine_on_bus_station.objects.values_list()
+    titles = ["Machine ID","Status","Position","Amount Deducting","Bus Station","Date Created","Balance Amount","Credit Amount","Date Created"]
     return render(request,'table-trial.html',{"data":user_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
 #Getting data of rgistered Bus stations
