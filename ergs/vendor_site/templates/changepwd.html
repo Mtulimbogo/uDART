@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>UDART Ticketing</title>
+    <link rel="stylesheet" href="{% static 'vendor/login.css'%}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/udart1.ico'%} "/>
+  </head>
+  <body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- <h2 class="active"> Sign In </h2> -->
+        <!--<h2 class="inactive underlineHover">Sign Up </h2> -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="{% static 'vendor/logo.png'%}" id="icon" alt="User Icon" />
+        </div>
+        <h2 class="active">Change Password</h2>
+        <!-- Login Form -->
+        <form method = "POST" action="login" enctype = "application/w-xxx-form-urlencoded">
+        {% csrf_token %}
+          <input
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="original_pwd"
+            placeholder="Original Password"
+          />
+          <input
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="new_pwd1"
+            placeholder="New Password"
+          />
+          <input
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="new_pwd2"
+            placeholder="Confirm New Password"
+          />
+          <input type="submit" class="fadeIn fourth" value="Change Password" />
+        </form>
+          <div>
+            <h2 class="active">
+              <a href="vendor_setting">
+                BACK
+              </a>
+            </h2>
+            <h2 class="active">
+              <a href="logout">
+                LOGOUT
+              </a>
+            </h2>
+          </div>
+        <!-- Remind Passowrd 
+                <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+                </div> -->
+      </div>
+    </div>
+  </body>
+</html>

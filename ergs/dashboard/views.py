@@ -143,11 +143,13 @@ def login(request):
 
         else:
             print(request.user.is_authenticated)
-            return render(request,'login-register.html')
+            # return render(request,'login-register.html')
+            return render(request,'new_login.html')
     else:
-         return render(request,'login-register.html')
+        #  return render(request,'login-register.html')
+        return render(request,'new_login.html')
 
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True)
 def home(request):
      relevant_data = relevant_data_fn(request) 
@@ -191,7 +193,7 @@ def relevant_data_fn(request):
 #     return relevant_data
 
 #insert a new Bus Station details
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def add_bus_station(request): 
     if request.method == 'POST':
@@ -216,7 +218,7 @@ def add_bus_station(request):
 
 
 #insert a new Vendor detail Station details
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def insert_vendor_data(request): 
     if request.method == 'POST':
@@ -239,7 +241,7 @@ def insert_vendor_data(request):
 
 
 #insert a new Recharge detail 
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def recharge_data(request): 
     if request.method == 'POST':
@@ -261,7 +263,7 @@ def recharge_data(request):
 
  
 #insert a new Machine detail Station details
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def insert_machine_detail(request): #insert a new Machine detail Station details
     if request.method == 'POST':
@@ -284,7 +286,7 @@ def insert_machine_detail(request): #insert a new Machine detail Station details
 
 
 #insert a new user details via adminstrative daashboard.
-@login_required(login_url='/sumb')  #
+@login_required(login_url='/admin_app/sumb')  #
 @cache_control(no_cache=True, must_revalidate=True)  
 def add_user_data(request): 
     if request.method == 'POST':
@@ -354,7 +356,7 @@ def add_user_data(request):
 
 
 #Redirecting to a  page for adding new bus station
-@login_required(login_url='/sumb')
+@login_required(login_url='/admin_app/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def bus_station_form(request):
     if not request.user.is_authenticated:
@@ -363,7 +365,7 @@ def bus_station_form(request):
 
 
 #Redirecting to a Recharge form for top up customer account
-@login_required(login_url='/sumb')
+@login_required(login_url='/admin_app/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def recharge_account(request):
     if not request.user.is_authenticated:
@@ -372,7 +374,7 @@ def recharge_account(request):
 
 
 #Redirecting to  a page for adding new Customer or passenger data (Registering card to a user) 
-@login_required(login_url='/sumb')
+@login_required(login_url='/admin_app/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def customer_data(request):
     if not request.user.is_authenticated:
@@ -381,7 +383,7 @@ def customer_data(request):
 
 
 #Redirecting to a page that add new Machine data (Registering Machines on bus station)
-@login_required(login_url='/sumb')
+@login_required(login_url='/admin_app/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def add_machine_detail(request):
     if not request.user.is_authenticated:
@@ -389,7 +391,7 @@ def add_machine_detail(request):
     return render(request,'machineData-form.html',{})
 
 #Redirecting to a vendor form that registers new vendor 
-@login_required(login_url='/sumb')
+@login_required(login_url='/admin_app/sumb')
 @cache_control(no_cache=True, must_revalidate=True)  
 def add_vendor_detail(request):
     if not request.user.is_authenticated:
@@ -417,7 +419,7 @@ def add_vendor_detail(request):
 
 
 #Getting data of registers users (customer or passengers)
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def view_users(request):  # getting User data
     if not request.user.is_authenticated:
@@ -429,7 +431,7 @@ def view_users(request):  # getting User data
     return render(request,'table-trial.html',{"data":user_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
 #Getting data of Machines Registered 
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def machine_details(request): 
     if not request.user.is_authenticated:
@@ -441,7 +443,7 @@ def machine_details(request):
     return render(request,'table-trial.html',{"data":user_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
 #Getting data of rgistered Bus stations
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 def view_bus_station(request): #Getting Bus station data, Some data has to be fetched from the Machine table
     if not request.user.is_authenticated:
         return redirect('sumb')
@@ -456,7 +458,7 @@ def view_bus_station(request): #Getting Bus station data, Some data has to be fe
 
 
 #Getting data of Revenue collected 
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def view_bus_revenue(request):  # getting data from Fare collection Model, Some data to be fetched from Machine and Station.
     if not request.user.is_authenticated:
@@ -469,7 +471,7 @@ def view_bus_revenue(request):  # getting data from Fare collection Model, Some 
     return render(request,'table-trial.html',{"data":revenue_details ,"data_tiles":titles,"doc_header":doc_header,"doc_para":doc_para})
 
 #Getting data of Registered Vendors
-@login_required(login_url='/sumb') 
+@login_required(login_url='/admin_app/sumb') 
 @cache_control(no_cache=True, must_revalidate=True) 
 def vendor_detail(request):  # getting data from Vendor Data Model, Some data to be fetched from Machine and Station.
     if not request.user.is_authenticated:
@@ -580,4 +582,4 @@ def logout_view(request):
     # print(request.user.is_authenticated)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('/sumb')
+    return HttpResponseRedirect('/admin_app/sumb')

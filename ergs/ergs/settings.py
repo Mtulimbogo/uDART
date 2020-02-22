@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
   
-    'dashboard',
+    'dashboard', # Dashboard for administrative contents
+    'vendor_site', #Vendor website
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     # 'leaflet',
     'djgeojson',
     'django_tables2',
-    'myapi.apps.MyapiConfig',
+    # 'myapi.apps.MyapiConfig',
     
 ]
 
@@ -64,9 +65,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ergs.urls'
 
-LOGIN_URL = '/sumb'
+LOGIN_URL = '/admin_app/sumb'
 LOGIN_REDIRECT_URL = ''
-LOGOUT_REDIRECT_URL = '/sumb'
+LOGOUT_REDIRECT_URL = '/admin_app/sumb'
 
 TEMPLATES = [
     {

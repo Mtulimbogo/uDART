@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>UDART Ticketing</title>
+    <link rel="stylesheet" href="{% static 'vendor/login.css'%}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/udart1.ico'%} "/>
+  </head>
+  <body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- <h2 class="active"> Sign In </h2> -->
+        <!--<h2 class="inactive underlineHover">Sign Up </h2> -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="{% static 'vendor/logo.png'%}" id="icon" alt="User Icon" />
+        </div>
+        <h2 class="active" id="1" onclick="showreg()">Register Customer</h2>
+        <h2 class="inactive underlineHover" id="2" onclick="showrech()">
+          Recharge Customer
+        </h2>
+        <div id="reg_cust">
+          <!-- Login Form -->
+          <form method = "POST" action="login" autocomplete="off" enctype="application/x-www-form-urlencoded">
+            {% csrf_token %}
+            <input
+              type="text"
+              id="login"
+              class="fadeIn second"
+              name="username"
+              placeholder="User Name"
+            />
+            <!-- have to check hiding the password in css -->
+            <input
+              type="text"
+              id="NIN"
+              class="fadeIn second"
+              name="nin"
+              placeholder="National ID"
+            />
+
+            <input
+              type="text"
+              id="UUID"
+              class="fadeIn second"
+              name="uuid"
+              placeholder="Card Number"
+            />
+            <input
+              type="text"
+              id="password"
+              class="fadeIn third"
+              name="inirecharge"
+              placeholder="Amount to Recharge"
+            />
+            <!-- <input type="text" id = ""> -->
+            <input
+              type="submit"
+              class="fadeIn fourth"
+              value="Register New Customer"
+            />
+          </form>
+          <div>
+            <h2 class="active">
+              <a href="vendor_setting">
+                SETTINGS
+              </a>
+            </h2>
+            <h2 class="active">
+              <a href="logout">
+                LOGOUT
+              </a>
+            </h2>
+          </div>
+        </div>
+
+        <div id="rech_cust" style="display: none">
+          <form
+            action="login"
+            method = "POST"
+            autocomplete="off"
+            enctype="application/x-www-form-urlencoded"
+          >
+          {% csrf_token %}
+            <input
+              type="text"
+              id="login"
+              class="fadeIn second"
+              name="uuid"
+              placeholder="Transport Card Number"
+            />
+            <!-- have to check hiding the password in css -->
+            <input
+              type="text"
+              id="password"
+              class="fadeIn third"
+              name="amount"
+              placeholder="Amount to Recharge"
+            />
+            <!-- <input type="text" id = ""> -->
+            <input
+              type="submit"
+              class="fadeIn fourth"
+              value="Recharge Customer"
+            />
+          </form>
+          <div>
+            <h2 class="active">
+              <a href="vendor_setting">
+                SETTINGS
+              </a>
+            </h2>
+            <h2 class="active">
+              <a href="logout">
+                LOGOUT
+              </a>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+    <script>
+      function showrech() {
+        var x = document.getElementById("reg_cust");
+        var y = document.getElementById("rech_cust");
+
+        x.style.display = "none";
+        y.style.display = "block";
+        var element1 = document.getElementById("1");
+        var element2 = document.getElementById("2");
+        element1.className = element1.className.replace(
+          /\bactive\b/g,
+          "inactive underlineHover"
+        );
+        element2.className = element2.className.replace(
+          /\binactive underlineHover\b/g,
+          "active"
+        );
+      }
+      function showreg() {
+        var x = document.getElementById("reg_cust");
+        var y = document.getElementById("rech_cust");
+
+        x.style.display = "block";
+        y.style.display = "none";
+
+        var element1 = document.getElementById("2");
+        var element2 = document.getElementById("1");
+        element1.className = element1.className.replace(
+          /\bactive\b/g,
+          "inactive underlineHover"
+        );
+        element2.className = element2.className.replace(
+          /\binactive underlineHover\b/g,
+          "active"
+        );
+      }
+    </script>
+  </body>
+</html>

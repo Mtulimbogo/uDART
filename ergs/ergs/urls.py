@@ -22,10 +22,12 @@ from django.views import defaults as default_views
 # from dashboard.views import errorpage,login
 from django.conf.urls import url
 from dashboard import views,urls
+from vendor_site import views,urls
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include ('dashboard.urls')),
+    path('admin_app/',include ('dashboard.urls')),
+    path('vendor_app/',include ('vendor_site.urls')),
     # url(r'^accounts/',include(admin.site.urls)),
     # path('accounts/', include('django.contrib.auth.urls')),
     # url('accounts/login/',auth_views.LoginView,{'template_name': 'dashboard/login-register.html'}, name='login'),
